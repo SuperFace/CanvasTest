@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+	<title>院子</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta id="jdouview" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+	<meta name="format-detection"content="telephone=no">	
+	<script type="text/javascript" src="./js/jquery.js"></script>
+    <script type="text/javascript" src="./js/jquery.hammer-full.min.js"></script>
+    <script type="text/javascript">
+var u = navigator.userAgent;
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+if(isiOS){
+	//window.location.href='http://www.jdou.org/quanjing/index.php/Home/Online/index.html?wid=220';
+}
+</script>
+<style type="text/css">
+  
+html,body{margin:0; padding:0;font: 14px/22px "微软雅黑","宋体",Arial; color:#fff;background-color: #000000; cursor: move; overflow: hidden;}
+ul,li{ margin:0; padding:0; list-style:none;}
+p{ padding:0; margin:0;}
+a{ color:#42ccad; text-decoration:none;}
+a:hover{ text-decoration:underline;}
+
+  div{margin:0; padding:0;}
+
+.container, .viewer {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+}
+
+.viewer {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	-webkit-transition: -webkit-transform 3s;
+	transition: transform 3s;
+	-webkit-perspective: 600px;
+	perspective: 600px;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+
+
+.cube {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform-origin: 50% 50% 513px;
+	-webkit-transform: translateZ(-150px);
+	transform: translateZ(-150px);
+}
+
+
+
+.cube .cs {
+	position: absolute;
+	width: 1028px;
+	height: 1028px;
+	top: 50%;
+	left: 50%;
+	margin-top: -513px;
+	margin-left: -513px;
+	/*opacity: 0.8;*/
+	-webkit-transition: -webkit-transform 3s;
+	transition: transform 3s;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+
+.cube .cs img{
+	width: 100%;
+}
+
+
+.front {
+	-webkit-transform: translateZ(513px) translateZ(-513px);
+	transform: translateZ(513px) translateZ(-513px);
+}
+.right {
+	-webkit-transform: translateZ(513px) rotateY(-90deg) translateZ(-513px);
+	transform: translateZ(513px) rotateY(-90deg) translateZ(-513px);
+}
+.left {
+	-webkit-transform: translateZ(513px) rotateY(90deg) translateZ(-513px);
+	transform: translateZ(513px) rotateY(90deg) translateZ(-513px);
+}
+.rear {
+	-webkit-transform: translateZ(513px) translateZ(513px) rotateY( 180deg );
+	transform: translateZ(513px) translateZ(513px) rotateY( 180deg );
+}
+.roof {
+	-webkit-transform: translateZ(513px) rotateX(-90deg) translateZ(-513px) rotate(180deg);
+	transform: translateZ(513px) rotateX(-90deg) translateZ(-513px) rotate(180deg);
+}
+.floor {
+	-webkit-transform: translateZ(513px) rotateX(90deg) translateZ(-513px) rotate(180deg);
+	transform: translateZ(513px) rotateX(90deg) translateZ(-513px) rotate(180deg);
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div id="container" class="container">
+	<div id="viewer" class="viewer">
+		<div id="cube" class="cube">
+			<div class="cs front">
+				<img src="http://www.jdou.org/quanjing/Uploads/2016-02-25/56cee93b27356.jpgthumb.jpg">	
+                         <div id="tipqipao1" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 1; font-size: 8px; width: 60px; border: 1px solid rgb(187, 187, 187); border-radius: 5px; position: absolute; top: 163px; left: 268px; color: rgb(150, 195, 70); opacity: 0.7; line-height: 1.2em; padding: 5px; background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://item.jd.com/1774359568.html"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p>石榴树</p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao2" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 1; font-size: 8px; width: 60px; border: 1px solid rgb(187, 187, 187); border-radius: 5px; position: absolute; top: 55px; left: 198px; color: rgb(254, 3, 3); opacity: 0.7; line-height: 1.2em; padding: 5px; background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://item.jd.com/1336749.html"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p>枣树</p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao3" class="tipqipao selected" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 1; font-size: 8px; width: 60px; border: 1px solid rgb(187, 187, 187); border-radius: 5px; position: absolute; top: 145px; left: 390px; color: rgb(251, 254, 3); opacity: 0.7; line-height: 1.2em; padding: 5px; background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://item.jd.com/1364490783.html"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p>柿子树</p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div>						</div>
+		<div class="cs right">
+			<img src="http://www.jdou.org/quanjing/Uploads/2016-02-25/56cee95c04f47.jpgthumb.jpg">
+                        							
+		</div>
+		<div class="cs rear">
+			<img src="http://www.jdou.org/quanjing/Uploads/2016-02-25/56cee967ab2f9.jpgthumb.jpg">
+                        						</div>
+		<div class="cs left">
+			<img src="http://www.jdou.org/quanjing/Uploads/2016-02-25/56cee94bbc644.jpgthumb.jpg">
+                        						</div>
+		<div class="cs roof">
+			<img src="http://www.jdou.org/quanjing/Uploads/2016-02-25/56cee9e4d70d8.jpgthumb.jpg">
+                        <div id="tipqipao4" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 1; font-size: 8px; width: 70px; border: 1px solid rgb(187, 187, 187); border-radius: 100px; position: absolute; top: 172px; left: 207px; color: rgb(150, 195, 70); opacity: 0.65; line-height: 1.2em; padding: 5px; box-shadow: rgb(221, 221, 221) 0px 0px 70px; background-image: url(http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceef0d708a4.pngthumb.jpg); background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://jdou.org"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p><br></p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao6" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 15; font-size: 8px; width: 70px; border: 1px solid rgb(187, 187, 187); border-radius: 100px; position: absolute; top: 220px; left: 209px; color: rgb(150, 195, 70); opacity: 0.7; line-height: 1.2em; padding: 5px; box-shadow: rgb(221, 221, 221) 0px 0px 54px; background-image: url(http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceef0d708a4.pngthumb.jpg); background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://jdou.org"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p><br></p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao7" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 155; font-size: 8px; width: 70px; border: 1px solid rgb(187, 187, 187); border-radius: 100px; position: absolute; top: 221px; left: 124px; color: rgb(150, 195, 70); opacity: 0.7; line-height: 1.2em; padding: 5px; box-shadow: rgb(221, 221, 221) 0px 0px 54px; background-image: url(http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceef0d708a4.pngthumb.jpg); background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://jdou.org"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p><br></p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao8" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 15; font-size: 8px; width: 70px; border: 1px solid rgb(187, 187, 187); border-radius: 100px; position: absolute; top: 288px; left: 294px; color: rgb(150, 195, 70); opacity: 0.7; line-height: 1.2em; padding: 5px; box-shadow: rgb(221, 221, 221) 0px 0px 54px; background-image: url(http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceef0d708a4.pngthumb.jpg); background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://jdou.org"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p><br></p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao9" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 15; font-size: 8px; width: 70px; border: 1px solid rgb(187, 187, 187); border-radius: 100px; position: absolute; top: 284px; left: 124px; color: rgb(150, 195, 70); opacity: 0.7; line-height: 1.2em; padding: 5px; box-shadow: rgb(221, 221, 221) 0px 0px 54px; background-image: url(http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceef0d708a4.pngthumb.jpg); background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://jdou.org"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p><br></p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div><div id="tipqipao10" class="tipqipao" onmousedown="eventDown(this)" ondblclick="dbeditwenzi(this);return false;" style="text-decoration: none; text-align: center; z-index: 15; font-size: 8px; width: 70px; border: 1px solid rgb(187, 187, 187); border-radius: 100px; position: absolute; top: 222px; left: 292px; color: rgb(150, 195, 70); opacity: 0.7; line-height: 1.2em; padding: 5px; box-shadow: rgb(221, 221, 221) 0px 0px 54px; background-image: url(http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceef0d708a4.pngthumb.jpg); background-color: rgb(0, 0, 0); background-size: 100% 100%; background-position: 50% 50%; background-repeat: no-repeat;" alt="http://jdou.org"><div class="downRightBtn" onmousedown="onDownRightBtnDown(this)"></div><div class="addwenzi"><p><br></p></div><div id="btnEdittwo" onclick="editObj(this); return false;"><div class="editwrap"><div class="editmove"></div></div></div><div id="btnCopytwo" onclick="copyt(this)"><div class="copywrap"><div class="copymove"></div></div></div><div id="btnDelatetwo" onclick="delatet(this)"><div class="delatewrap"><div class="delatemove"></div></div></div></div>						</div>
+			<div class="cs floor">
+				<img src="http://www.jdou.org/quanjing/Uploads/2016-02-25/56ceec8fab9f2.jpgthumb.jpg">
+                         						</div>
+		</div>
+	</div>
+</div>
+<script src="./js/h5_3d.js"></script>
+</body>
+</html>

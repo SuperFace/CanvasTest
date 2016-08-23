@@ -1,0 +1,90 @@
+1、显示主目录：MenuManager.instance.show(MenuManager.instance.mainMenu)
+																			--jelly.js
+																			
+2、显示当前阶段： MenuManager.instance.show(MenuManager.instance.map);
+
+
+3、进入第几个模式：LevelManager.instance.loadLevel(4);
+
+				App.level.init(2)
+				
+4、########加载完毕后：t.prototype.onAnimEnd 			
+
+5、当前得分：Match3Level.instance.score
+
+6、提示失败：Match3Level.instance.onLose->MenuManager.instance.show(MenuManager.instance.loseMenu, false)
+	
+7、控制布局：App.game.resize(null,400,1)//width,height,top	
+
+7.1 剩余步数：this.movesLeft =1000;// parseInt(s[7]); change by fan
+
+8、加载完毕：
+e.prototype.onLoadComplete = function () {
+        this.onResize();
+        this.onProgress();       
+        this.showButton();
+        App.game.loadApi();
+        WGtangguo.onReady();//XXXXX
+    };
+				
+App.level.init=function (e) {
+        this.reset();
+        this.showTargetIn = .3;
+        removeClip(this.fpsText);
+        this.showWinMenuIn = -1;
+        this.uncache();
+        SoundsManager.instance.reset();
+        App.game.stage.addChild(this);
+        this.isEnded = false;
+        var t = 0;
+        var n = 0;
+        var r = 0;
+        t = -1;
+        n = 0;
+        r = 0;
+        this.movesLeft = 99;
+        var i = [500, 1500, 3e3];
+        var s = null;
+        var o = window.location.href;
+        if (o.indexOf("lvl") != -1) {
+            o = o.split("lvl")[1];
+            s = o
+        }
+        var u = s ? new LevelData(e, s) : LevelManager.instance.data[e];
+        this.levelData = u;
+        this.cellData = u.cellData;
+        t = u.targetData;
+        n = u.customData;
+        r = u.customData2;
+        this.movesLeft = u.movesLeft;
+        i = u.starValues;
+        switch (t) {
+        case 0:
+            this.target = new BlockClearTarget;
+            break;
+        case 1:
+            this.target = new ClearMarkTarget;
+            break;
+        case 2:
+            this.target = new PushDownTarget(n);
+            break;
+        case 3:
+            this.target = new ColorTarget(n, r);
+            break;
+        case 4:
+            this.target = new ScoreTarget(n);
+            break;
+        case -1:
+            this.target = new InfiniteTarget;
+            break
+        }
+        this.target.scores = i;
+        App.game.backStage.addChildAt(this.back, 0);
+        App.game.backStage.addChild(this.marks);
+        App.game.needToUpdateBack = true;
+        this.score = 0;
+        this.generate();
+        this.needToUpdateGemCache = true;
+        this.hud.show();
+        this.update(0)
+    }																							

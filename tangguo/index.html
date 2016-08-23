@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml" manifest="manifest.mf">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <meta name="viewport" content="width=640, initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=0;">   
+    <meta charset="utf-8">
+
+    <title>糖果乐园</title>
+
+    <link href="./index_files/app.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./index_files/game.js"></script>
+    <script type="text/javascript" src="./index_files/easeljs-NEXT.min.js"></script>
+    <script type="text/javascript" src="./index_files/preloadjs-NEXT.min.js"></script>
+    <script type="text/javascript" src="./index_files/soundjs-NEXT.min.js"></script>
+    <script type="text/javascript" src="./index_files/tweenjs-NEXT.min.js"></script>
+
+    <script src="./index_files/viewporter.js"></script>
+    <script src="./index_files/jelly.js"></script>
+    <!-- Block Outgoing links -->
+    <script src="./index_files/blocklinks.js"></script>
+    <script type="text/javascript" src="/src/js/jq/jquery-1.3.2.min.js"></script>
+    
+	<script type='text/javascript' src='/game/WGCore/js/strophe-custom-2.0.0.js'></script>
+	<script type='text/javascript' src='/game/WGCore/js/json2.js'></script>
+	<script type="text/javascript" src="/game/WGCore/js/easemob.im-1.0.5.js"></script>	
+    
+    <script type="text/javascript" src="/sys/file/165,180,181.js"></script>
+    <link rel="stylesheet" type="text/css" href="/sys/file/182.css" />  
+	
+	<script type="text/javascript">
+	    function dp_submitScore(level, score)
+	    { }
+	</script>
+	
+</head>
+
+<body style="background:#fff url(./img/background.png) no-repeat left top;background-size:100%;">
+
+    <div id="viewporter">
+
+	    <header id="header" class="EaselJS">
+	    </header>
+
+        <canvas id="canvas" width="640" height="960" style="position: absolute; z-index: 1; display: block; width: 546.8463611859838px; height: 820.2695417789757px; top: -93.13477088948787px; left: 366.5768194070081px;"></canvas>
+        <canvas id="canvas_back" width="640" height="960" style="position: absolute; z-index: 0; display: block; width: 546.8463611859838px; height: 820.2695417789757px; top: -93.13477088948787px; left: 366.5768194070081px;"></canvas>
+
+        <div id="portraitLock" class="portraitLock" style="display: none;">
+            <img class="rotatePhoneIcon" src="./index_files/lock.jpg">
+        </div>
+    </div>
+	<div id="weGame-main-frame">		
+		<table class="wg-header-tbl">
+			<tr>
+				<td id="wg-td-user1">
+					<img class="wg-user-tx-image" border="2" src="./img/user2.jpg"/>
+					<span class="wg-score">
+						<img src="/game/WGCore/img/num/num_0.png">
+					</span>					
+					<span class="wg-big-score"><img src="./img/icon_crown.png"/>1胜</span>					
+					<p class="wg-user-name">小野猫</p>
+				</td>
+				<td id="wg-td-user2">
+					<img class="wg-user-tx-image" border="2" src="./img/user1.jpg"/>
+					<span class="wg-score">
+						<img src="/game/WGCore/img/num/num_0.png">
+					</span>
+					<span class="wg-big-score"><img src="./img/icon_crown.png"/>2胜</span>
+					<p class="wg-user-name">小野菊</p>
+				</td>
+				<td id="wg-td-user3" style="background-color: white;">
+					<img class="wg-user-tx-image" src="./img/WeGame_logo.png"/>
+				</td>
+			</tr>
+		</table>		
+	</div>
+	<div class="wg-main-container">
+		<div class="wg-bbar-div">
+				<img class="wg-setting-btn" src="/game/WGCore/img/setting_button.png"/>							
+				<img  class="wg-chat-btn" src="/game/WGCore/img/chat_button.png"/>
+		</div>
+	</div>
+	<div class="wg-main-frame"  style="display:none;">	   
+		<div class="wg-setup-container" style="display:none;">
+		    <img style="width: 100%;" class="wg-setup-container-bg" src="/game/WGCore/img/setting_board.png">
+		    <img alt="X"  class="wg-setup-close-btn" src="/game/WGCore/img/close_button.png">
+		    <div>
+				<p><span>房间类型</span>
+					<select name="roomMode">
+						<option value="volvo">1:1</option>
+						<option value="saab">2:2</option>
+						<option value="fiat">1:1:1</option>
+						<option value="audi">2:2:2</option>
+					</select>
+				</p>
+				<p><span>选队</span>
+					<select name="selectGroup">
+						<option value="volvo">红队</option>
+						<option value="saab">黄队</option>
+						<option value="fiat">蓝队</option>
+					</select>
+				</p>				
+			</div>
+			<p class="wg-quit-room">退出房间</p>
+		</div>
+		<div style="width: 100%;height:100%;display:none;" class="wg-chat-container">
+			<img class="wg-sticker-btn" src="/game/WGCore/img/sticker_board.png"/>
+			<div style="position: absolute;bottom: 10px;text-align: center;width: 100%;">
+				<img class="wg-talking-btn" src="/game/WGCore/img/talk_button.png"/>
+				<img  class="wg-chat-back-btn" src="/game/WGCore/img/chat_draw_back_button.png"/>
+			</div>
+		</div>
+	</div>	
+	</body>
+</html>

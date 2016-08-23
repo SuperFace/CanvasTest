@@ -1,0 +1,187 @@
+<html version="1.1.0">
+<head>
+<title>简图</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store,no-siteapp, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+<meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui;">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="简图">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="format-detection" content="telephone=no">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<style type="text/css">
+.one{
+	position:absolute;
+	width:100px;
+	height:100px;
+	top:0px;
+	left:0px;
+	z-index:1;
+	background:#03051e;
+}
+.two{
+	position:absolute;
+	width:100px;
+	height:2px;
+	top:50px;
+	left:0px;
+	z-index:1;
+	background:#31649d;
+}
+.two1{
+	position:absolute;
+	width:2px;
+	height:100px;
+	left:70px;
+	top:0px;
+	z-index:1;
+	background:#31649d;
+}
+.three{
+	position:absolute;
+	width:50px;
+	height:50px;
+	top:25px;
+	left:45px;
+	z-index:2;
+	background: -moz-radial-gradient(center center, circle, rgba(255,255,255,1.0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+	background: -webkit-radial-gradient(center center, circle, rgba(255,255,255,1.0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+	border-radius:25px;
+	-webkit-border-radius:25px;
+	-moz-border-radius:25px;
+	-o-border-radius:25px;
+	-ms-border-radius:25px;
+	mix-blend-mode: overlay;
+}
+#canvas-wrap{
+	position:absolute;
+	width:600px;
+	height:400px;
+	top:120px;
+	left:20px;
+}
+.light-point{
+	position:absolute;
+	width:40px;
+	height:40px;
+	background: -moz-radial-gradient(center center, circle, rgba(255,255,255,1.0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+	background: -webkit-radial-gradient(center center, circle, rgba(255,255,255,1.0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+	border-radius:25px;
+	-webkit-border-radius:25px;
+	-moz-border-radius:25px;
+	-o-border-radius:25px;
+	-ms-border-radius:25px;
+	mix-blend-mode: overlay;
+}
+#canvas{
+	position:absolute;
+	top:0px;
+	left:0px;
+	border:1px solid #ddd;
+	background:#03051e;
+}
+</style>
+</head>
+<body>
+<div class="one" id="one">
+	<div class="two" id="two"></div>
+	<div class="two1" id="two1"></div>
+	<div class="three" id="three"></div>
+</div>
+<div id="canvas-wrap">
+	<canvas id="canvas" width="600" height="400"></canvas>
+</div>
+<script type="text/javascript" src="./js/CTB.js"></script>
+<script type="text/javascript">
+~~function(){
+	
+	
+	var one = document.querySelector("#one"), 
+		two = document.querySelector("#two"),
+		three = document.querySelector("#three"),
+		canvasWrap = document.querySelector("#canvas-wrap"),
+		canvas = document.querySelector("#canvas"),
+		cxt = canvas.getContext("2d");
+	/* var blendModes = ["mix-blend-mode: normal", 
+	                  "mix-blend-mode: multiply", 
+	                  "mix-blend-mode: screen", 
+	                  "mix-blend-mode: overlay", 
+	                  "mix-blend-mode: darken", 
+	                  "mix-blend-mode: lighten",
+	                  "mix-blend-mode: color-dodge",
+	                  "mix-blend-mode: color-burn",
+	                  "mix-blend-mode: hard-light",
+	                  "mix-blend-mode: soft-light",
+	                  "mix-blend-mode: difference",
+	                  "mix-blend-mode: exclusion",
+	                  "mix-blend-mode: hue",
+	                  "mix-blend-mode: saturation",
+	                  "mix-blend-mode: color",
+	                  "mix-blend-mode: luminosity",
+	                  "mix-blend-mode: initial",
+	                  "mix-blend-mode: inherit",
+	                  "mix-blend-mode: unset"
+	    ];
+	var n=0;
+	setTimeout(function(){
+		three.style.cssText = blendModes[n];
+		n++;
+		setTimeout(arguments.callee, 2000);
+	}, 2000); */
+	
+	var draw = function(){
+		cxt.save();
+		cxt.strokeStyle = "#31649d";
+		cxt.lineWidth = 2;
+		cxt.moveTo(100,0);
+		cxt.lineTo(100,200);
+		cxt.stroke();
+		cxt.restore();
+		
+		cxt.save();
+		cxt.strokeStyle = "#31649d";
+		cxt.lineWidth = 2;
+		cxt.moveTo(0,100);
+		cxt.lineTo(200,100);
+		cxt.stroke();
+		cxt.restore();
+		
+		var _lightPoint = document.createElement("div");
+		_lightPoint.className = "light-point";
+		_lightPoint.style.left = "80px";
+		_lightPoint.style.top = "80px";
+		canvasWrap.appendChild(_lightPoint);
+		
+		/* cxt.save();
+		var grd=cxt.createRadialGradient(100,100,2,100,100,20);
+		grd.addColorStop(0,"rgba(255,255,255,0.6)");
+		grd.addColorStop(1,"rgba(255,255,255,0)");
+		cxt.fillStyle=grd;
+		cxt.arc(100,100,25,0, Math.PI * 2, true);
+		cxt.fill();
+		cxt.restore(); */
+	};
+	draw();
+	/* var _arr = [0.5,0.3,1.2,1.5,0.3,0.4,1.0];
+	var m=0;
+	setTimeout(function(){
+		var w = 600*_arr[m];
+		var h = 400*_arr[m];
+		canvas.width = w;
+		canvas.height = h;
+		draw();
+		m++;
+		if(m >= _arr.length) m=0;
+		setTimeout(arguments.callee, 1000);
+	}, 1000); */
+}();
+</script>
+</body>
+</html>

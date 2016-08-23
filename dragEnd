@@ -1,0 +1,12 @@
+
+/*dx += ev.x;
+					dy += ev.y;
+					isDrag = false;
+					var dragTran = "translate3d(" + -x + "px," + -y + "px,0)";
+					textCanvas.style.webkitTransformOrigin = "center center";
+					textCanvas.style.webkitTransform = dragTran;
+					drawTileList = {"nameLineArr": [], "namePointsArr": [], "pointsArr": [], "POIArr": []};
+					textCanvas.style.opacity=0;
+					if(newDownLoadTilesNum == 0){
+						that.touchCollectionTextData();
+					}*/

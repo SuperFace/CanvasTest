@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
+<title>鼻涕虫</title>    
+<script>
+    var currentX = 0;
+	var currentY = 0;
+	var isReFreshed = false;
+	var offsetL=0;
+	var startX = 0;
+	var startY = 0;
+	var isInit = true;
+	
+	var c;
+    var cxt;
+    var cClientRectBox;
+    var color="rgb(255,0,0)";
+    var BEZIER_OFFSET = 0;// 贝塞尔曲线的偏移值
+    var R = 0;// 圆球的半径
+    var Y_OFFSET = 0;// 竖直方向最大的偏移值
+    
+    //鼻涕虫下拉效果
+    var Snivel = {
+    		sawtooth: function(){//消除锯齿
+    			if (window.devicePixelRatio) {
+    				c.style.width = c.width + "px";
+    				c.style.height = c.height + "px";
+    				c.height = c.height * window.devicePixelRatio;
+    				c.width = c.width * window.devicePixelRatio;
+    				cxt.scale(window.devicePixelRatio, window.devicePixelRatio);
+   				}
+    		},
+    		init: function(){
+    			var that = this;
+    			c = document.querySelector("#canvas");
+    			cxt = c.getContext("2d");
+    			cClientRectBox = c.getBoundingClientRect();
+    			that.onTouchEvent();
+    			that.sawtooth();//消除锯齿
+    			that.draw();
+    		},
+    		addBcr: function(x1, y1, x2, y2, rate){
+    			var i = Math.floor(rate * BEZIER_OFFSET);
+    			var cx = (x2 + x1) / 2 - i; // 控制点x
+    			var cy = (y2 + y1) / 2 - i; // 控制点y
+    			cxt.quadraticCurveTo(cx,cy,x2,y2);//二次贝塞尔曲线
+    		},
+    		addBcr2: function(x1, y1, x2, y2, rate) {
+    			var i = Math.floor(rate * BEZIER_OFFSET);
+    			var cx = (x2 + x1) / 2 + i; // 控制点x
+    			var cy = (y2 + y1) / 2 - i; // 控制点y
+    			cxt.quadraticCurveTo(cx,cy,x2,y2);//二次贝塞尔曲线
+    		},
+    		onTouchEvent: function(){
+    			var that = this;
+    			that.addHandler(c, "touchstart", function(e){
+					that.touchHandler(e);
+				});
+				that.addHandler(c, "touchmove", function(e1){
+					that.touchHandler(e1);
+				});
+				that.addHandler(c, "touchend", function(e2){
+					that.touchHandler(e2);
+				});
+    		},
+    		getpoint: function(ev){
+    			var mx, my;
+    			var touch = ev.touches[0]; 
+				mx = touch.pageX;
+				my = touch.pageY;
+    			return {x: mx, y: my};
+    	    },
+    		touchHandler: function(e){
+    			var that = this;
+    			that.preventDefault(e);
+    			if (Y_OFFSET == 0) return true;
+    			switch (e.type) {
+	    			case "touchstart":
+	    				var currentPoint = that.getpoint(e);
+	        			currentX = currentPoint.x-5 - cClientRectBox.left;
+	        			currentY = currentPoint.y-5 - cClientRectBox.top;
+	    				startX = currentX;
+	    				startY = currentY;
+	    				break;
+	    			case "touchmove":
+	    				var currentPoint = that.getpoint(e);
+	        			currentX = currentPoint.x-5 - cClientRectBox.left;
+	        			currentY = currentPoint.y-5 - cClientRectBox.top;
+	    				// 计算偏移值，然后重新绘制
+	    				var dy = currentY - startY;
+	    				var dx = currentX - startX;
+	    				var dL = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
+	    				var dy = Math.abs(dy);
+	    				if (dy > Y_OFFSET) {
+	    					startX = startY = currentY = currentX = 0;
+	    					that.setOffsetL(0);
+	    				}else{
+	    					that.setOffsetL(dy,dL);
+	    				}
+	    				break;
+	    			case "touchend": 
+	    				// 重置界面
+	    				isReFreshed = false;
+	    				startX = startY = currentY = currentX = 0;
+	    				that.setOffsetL(0);
+	    				break;
+    			}
+    			return true;
+    		},
+    		isReFreshed: function() {
+    			return isReFreshed;
+    		},
+    		setOffsetL: function(dy, dL) {
+    			var that = this;
+    			offsetL = dy;
+    			if (offsetL >= 0) {
+    				that.draw();
+    			}
+    		},
+    		draw: function(){
+    			var that = this;
+    			if (BEZIER_OFFSET == 0) {
+    				var sw = c.width;
+    				var sh = c.height;
+    				BEZIER_OFFSET = sh / 40;
+    				R = 15;
+    				Y_OFFSET = sh - R*2;
+    			}
+    			that.update();
+    		},
+    		update: function(){
+    			var that = this;
+    			var width = c.width/2;
+    			var height = c.height/2;
+    			
+    			cxt.clearRect(0,0, width*2, height*2);
+    			
+    			cxt.fillStyle = color;
+    			cxt.strokeStyle = color;
+    			cxt.lineWidth = 1;
+    			
+    			var rate = 1.00 * offsetL / height;//比例
+    			
+    			var r = R * (1.00 - rate); // 圆球的半径，动态改变的，当拖拉的时候，r的会根据距离改变，进行变化
+    			r = r >= 0 ? r: 0;
+    			document.f.lg.value=startX+", "+currentX;
+    			
+    			var r2 = (1 - rate) * r; // 小圆的半径
+    			if(r2 <= 3 || isReFreshed){
+    				isReFreshed = true;
+    				cxt.beginPath();
+     				cxt.arc(currentX,currentY,R,2*Math.PI,0,false);// 根据半径r，画出大圆的上半圆
+					cxt.fill();
+    				cxt.closePath();
+    			}else if(isInit){
+    				isInit = false;
+    				
+        			var m = offsetL; // 算出底部的大圆与上面的小圆的圆心的距离
+        			
+        			var Rxmin = width/2; //小圆圆心x坐标
+        			var Rymin = r2; //小圆圆心y坐标
+        			
+        			var Rxmax = width/2; //大圆圆心x坐标
+        			var Rymax = r2 + (currentY - startY); // 大圆的圆心坐标，y坐标
+    				
+    				cxt.beginPath();
+        			isReFreshed = false;
+        			
+        			var x2 = r2 + width / 2; // 小圆的水平的直径右边的点x坐标
+        			var y2 = r2; // 小圆的水平的直径右边的点y坐标
+        			var x1 = width / 2 - r2;// 小圆的水平的直径左边的点x坐标
+        			var y1 = r2; // 小圆的水平的直径左边的点y坐标
+        			
+        			var x2m = r + width / 2; // 大圆的水平的直径右边的点x坐标
+        			var y2m = r2 + (currentY - startY); // 大圆的水平的直径右边的点y坐标
+        			var x1m = width / 2 - r; // 大圆的水平的直径左边的点x坐标
+        			var y1m = r2 + (currentY - startY); // 大圆的水平的直径左边的点y坐标
+        			
+        			cxt.arc(Rxmin,Rymin,r2,Math.PI,0,false);// 根据半径r，画出小圆的上半圆
+        			// 绘制一个贝塞尔曲线
+        			that.addBcr(x2, y2,x2m, y2m, rate);
+        			// 绘制大圆的下半圆
+        			cxt.arc(Rxmax,Rymax,r,0,-Math.PI,false);
+        			// 绘制一个贝塞尔曲线
+        			that.addBcr2(x1m, y1m, x1, y2, rate);
+        			cxt.fill();
+    				cxt.closePath();
+    			}else{
+    				if(currentX == width/2){
+    					var m = offsetL; // 算出底部的小圆与上面的大圆的圆心的距离
+        				
+        				cxt.beginPath();
+            			isReFreshed = false;
+            			
+            			var x2 = r2 + width / 2; // 小圆的水平的直径右边的点x坐标
+            			var y2 = r2; // 小圆的水平的直径右边的点y坐标
+            			var x1 = width / 2 - r2;// 小圆的水平的直径左边的点x坐标
+            			var y1 = r2; // 小圆的水平的直径左边的点y坐标
+            			var Rxmin = width/2; //小圆圆心x坐标
+            			var Rymin = r2; //小圆圆心y坐标
+            			
+            			var x2m = r + width / 2; // 大圆的水平的直径右边的点x坐标
+            			var y2m = r2 + (currentY - startY); // 大圆的水平的直径右边的点y坐标
+            			var x1m = width / 2 - r; // 大圆的水平的直径左边的点x坐标
+            			var y1m = r2 + (currentY - startY); // 大圆的水平的直径左边的点y坐标
+            			var Rxmax = width/2; //大圆圆心x坐标
+            			var Rymax = r2 + (currentY - startY); // 大圆的圆心坐标，y坐标
+            			
+            			cxt.arc(Rxmin,Rymin,r2,Math.PI,0,false);// 根据半径r，画出小圆的上半圆
+            			// 绘制一个贝塞尔曲线
+            			that.addBcr(x2, y2,x2m, y2m, rate);
+            			// 绘制大圆的下半圆
+            			cxt.arc(Rxmax,Rymax,r,0,-Math.PI,false);
+            			// 绘制一个贝塞尔曲线
+            			that.addBcr2(x1m, y1m, x1, y2, rate);
+            			cxt.fill();
+        				cxt.closePath();
+    				}
+    				if(currentY == r2){
+    					
+    				}
+    				if(currentX != width/2 && currentY != r2){
+    					var m = offsetL; // 算出底部的小圆与上面的大圆的圆心的距离
+        				
+        				cxt.beginPath();
+            			isReFreshed = false;
+            			
+            			var x2 = r2 + width / 2; // 小圆的水平的直径右边的点x坐标
+            			var y2 = r2; // 小圆的水平的直径右边的点y坐标
+            			var x1 = width / 2 - r2;// 小圆的水平的直径左边的点x坐标
+            			var y1 = r2; // 小圆的水平的直径左边的点y坐标
+            			var Rxmin = width/2; //小圆圆心x坐标
+            			var Rymin = r2; //小圆圆心y坐标
+            			
+            			var x2m = r + width / 2; // 大圆的水平的直径右边的点x坐标
+            			var y2m = r2 + (currentY - startY); // 大圆的水平的直径右边的点y坐标
+            			var x1m = width / 2 - r; // 大圆的水平的直径左边的点x坐标
+            			var y1m = r2 + (currentY - startY); // 大圆的水平的直径左边的点y坐标
+            			var Rxmax = width/2; //大圆圆心x坐标
+            			var Rymax = r2 + (currentY - startY); // 大圆的圆心坐标，y坐标
+            			
+            			cxt.arc(Rxmin,Rymin,r2,Math.PI,0,false);// 根据半径r，画出小圆的上半圆
+            			// 绘制一个贝塞尔曲线
+            			that.addBcr(x2, y2,x2m, y2m, rate);
+            			// 绘制大圆的下半圆
+            			cxt.arc(Rxmax,Rymax,r,0,-Math.PI,false);
+            			// 绘制一个贝塞尔曲线
+            			that.addBcr2(x1m, y1m, x1, y2, rate);
+            			cxt.fill();
+        				cxt.closePath();
+    				}
+    			}
+    		},
+    		addHandler: function(element, type, handler){
+				if(element.addEventListener){
+					element.addEventListener(type, handler, false);
+				}else if(element.attachEvent){
+					element.attachEvent("on" + type, handler);
+				}else{
+					element["on" + type] = handler;
+				}
+				
+			},
+			removeHandler: function(element, type, handler){
+				if(element.removeEventListener){
+					element.removeEventListener(type, handler, false);
+				}else if(element.dettachEvent){
+					element.dettachEvent("on" + type, handler);
+				}else{
+					element["on" + type] = null;
+				}
+			},
+			preventDefault: function(event){
+				if(event.preventDefault){
+					event.preventDefault();
+				}else{
+					event.returnValue = false;
+				}
+			},
+			stopPropagation: function(event){
+				if(event.stopPropagation){
+					event.stopPropagation();
+				}else{
+					event.cancelBubble = true;
+				}
+			}
+    };
+</script>
+</head>
+<body onLoad="Snivel.init();">
+<div style="position:absolute;width:100%;height:100%;top:0;left:0;">
+	<canvas id="canvas" width="320" height="100" style="border:1px solid #ddd;position:relative;margin:0 auto;margin-top:20px;display:block;"></canvas>
+	<form id="f" name="f">
+	    Radius:<input type="text" name="lg" id="lg" value="false" />
+	</form>
+</div>
+</body>
+</html>

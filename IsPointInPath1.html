@@ -1,0 +1,67 @@
+<!-- 鼠标悬停在某一圆上，则圆的颜色改变 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ <title>canvasMouseEvent</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+ <style type="text/css">
+  canvas {
+   border: 1px solid black;
+  }
+ </style>
+ </head>
+<body style="background:#eeeeee;" onload="init();">
+ <canvas id="canvas01" width="800" height="550" style="z-index:100;display:block;position:absolute;">
+  </canvas>
+</body>
+</html>
+ <script type="text/javascript">
+var canvas,ctx, mouseX = 999, mouseY = 999,circles = new Array;
+var num = Math.floor(Math.random()*30-10)+10;  
+function init(){
+    canvas = document.getElementById('canvas01');
+    ctx = canvas.getContext('2d');
+    
+    for(var i=0; i < num; i++){
+        circles[i] = {
+        x: Math.floor(Math.random()*canvas.width),
+        y : Math.floor(Math.random()*canvas.height),
+        r : Math.floor(Math.random()*60-10)+10
+        }
+    }
+    drawCanvas();
+    canvas.addEventListener('mousemove',updateCanvas,false);
+    
+}
+function findOffset(obj) {
+    var curX = curY = 0;
+    if (obj.offsetParent) {
+        do {
+            curX += obj.offsetLeft;
+            curY += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+    return {x:curX,y:curY};
+    }
+}
+function updateCanvas(e){
+    var pos = findOffset(canvas);
+    
+    mouseX = e.pageX - pos.x;
+    mouseY = e.pageY - pos.y;
+    
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawCanvas();
+}
+function drawCanvas() {   
+    for(var i = 0; i < num; i++){
+        ctx.beginPath();//检查每一条路径
+        ctx.fillStyle = 'rgba(0,0,0,.5)';
+        
+        ctx.arc(circles[i].x,circles[i].y,circles[i].r,0,Math.PI*2,false);
+        if(ctx.isPointInPath(mouseX,mouseY)){
+            ctx.fillStyle = 'red';
+        }
+        ctx.fill();
+    }
+}
+</script>
