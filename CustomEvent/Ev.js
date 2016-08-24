@@ -1,7 +1,7 @@
 //漫谈JS自定义事件：http://www.zhangxinxu.com/wordpress/2012/04/js-dom%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6/
 //https://developer.mozilla.org/en-US/docs/Web/API/Event
 //MDN: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy 用来替换下面的：Object.observer();
-(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe)
+//(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe)
 //https://developer.mozilla.org/en-US/docs/Web/API
 //这里给出一个完整的DOM事件机制，这个机制支持标准事件和自定义事件的监听，移除监听和模拟触发操作。
 //需要注意的是，为了使到代码的逻辑更加清晰，这里约定自定义事件带有 'custom' 的前缀（例如：customTest，customAlert）。
