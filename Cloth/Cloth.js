@@ -86,7 +86,9 @@ Point.prototype.update = function (delta) {
                 this.py = this.y - (mouse.y - mouse.py) * 1.8;
             }
 
-        } else if (dist < mouse_cut) this.constraints = [];
+        } else if (dist < mouse_cut){
+        	 this.constraints = [];
+        }
     }
 
     this.add_force(0, gravity);
@@ -244,7 +246,6 @@ Cloth.prototype.draw = function () {
 };
 
 function update() {
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     cloth.update();
