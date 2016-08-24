@@ -41,7 +41,7 @@
     testClick = $(testClick);
     // 回调函数
     function triggerClick(e){
-    	console.log('擦，我被狠狠地点击了！');
+    	console.log(e, '擦，我被狠狠地点击了！');
         testBox.trigger('customConsole');
         testClick.remove("click",  arguments.callee);//移除事件
     }
